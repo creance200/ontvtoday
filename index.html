@@ -29,26 +29,37 @@
 	<h1>Programme TV — Timeline</h1>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-10"></div>
+			<div class="col-lg-10 col-sm-9"></div>
 			<div class="col">
 				<button onclick="toggleDarkMode()">Changer de style</button>
 			</div>
 		</div>
 	</div>
 	<div class="controls">
-		<a href="https://xmltvfr.fr/xmltv/xmltv_fr.zip" style="margin-right:10px"><i class="fa-solid fa-cloud-arrow-down"></i>xmltv.zip</a>
-	
-		<input type="file" id="xmltvFile" accept=".xml" />
-
-		<select id="channelSelect" multiple size="7" style="width:270px;"></select>
-
-		<label>
-			Début : <input type="time" id="startTime" value="20:00" />
-			Fin : <input type="time" id="endTime" value="23:00" />
-		</label>
-
-		<button id="filterButton">Afficher la timeline</button>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-1 col-2">
+					<a href="https://xmltvfr.fr/xmltv/xmltv_fr.zip" style="margin-right:10px"><i class="fa-solid fa-cloud-arrow-down"></i>xmltv.zip</a>
+				</div>
+				<div class="col-lg-2 col-3">
+					<input type="file" id="xmltvFile" accept=".xml" />
+				</div>
+				<div class="col-lg-3 col-7">
+					<select id="channelSelect" multiple size="7" style="width:270px;"></select>
+				</div>
+				<div class="col-lg-2 col-4" style="align-content : end;">
+					<label>Début :</label> <input type="time" id="startTime" value="20:00" />
+				</div>
+				<div class="col-lg-2 col-4" style="align-content : end;">
+					<label>Fin :</label> <input type="time" id="endTime" value="23:00" />
+				</div>
+				<div class="col-lg-2 col-3" style="align-content : end;">
+					<button id="filterButton">Afficher la timeline</button>
+				</div>
+			</div>
+		</div>
 	</div>
+	
 
   <div id="timeline"></div>
   <div id="custom-tooltip"></div>
@@ -136,8 +147,9 @@
 
 		const title = prog.querySelector('title')?.textContent || 'Sans titre';
 		const desc = prog.querySelector('desc')?.textContent || 'Sans titre';
-		const deschtml = '<div style="width:800px; height:100px; border: solid red;">'+desc+'</div>';
 		const icon = prog.querySelector('icon')?.getAttribute('src');
+		/*const deschtml = '<div style="width:40%; border: solid red;">'+desc+'<img src="'+icon+'"></div>';*/
+		const deschtml = '<div border: solid red;">'+desc+'<img src="'+icon+'"></div>';
 
 		let content = title;
 		dtEnd.setSeconds(dtEnd.getSeconds() - 1);	// Enlève 1 seconde à l'heure de fin pour éviter chevauchement
@@ -145,7 +157,7 @@
 		items.push({
 		  id: idx + 1,
 		  content:  '<a href="https://www.google.com/search?q=allociné '+content+'">'+content+'</a>',
-		  title: desc,
+		  title: deschtml,
 		  start: dtStart,
 		  end: dtEnd,
 		  group: groupsMap[ch]
