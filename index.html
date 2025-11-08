@@ -30,6 +30,14 @@
       box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
       pointer-events: none;
     }
+	
+	.scrollable-div {
+	  width: 400px; /* Largeur fixe */
+	  height: 500px; /* Hauteur fixe */
+	  overflow: auto; /* La barre de défilement apparaît seulement si nécessaire */
+	  /* ou overflow: scroll; pour une barre de défilement toujours visible */
+	}
+	
   </style>
 </head>
 <body>
@@ -106,6 +114,15 @@
 
 	  reader.readAsText(file);
 	}
+	
+	function tronquer(chaine, tailleMax) {
+	  if (chaine.length > tailleMax) {
+		// -3 pour faire de la place pour les "..."
+		return chaine.slice(0, tailleMax - 3) + "...";
+	  } else {
+		return chaine;
+	  }
+	}	
 
     function populateChannels() {
       const select = document.getElementById('channelSelect');
@@ -156,7 +173,7 @@
 		const desc = prog.querySelector('desc')?.textContent || 'Sans titre';
 		const icon = prog.querySelector('icon')?.getAttribute('src');
 		/*const deschtml = '<div style="width:40%; border: solid red;">'+desc+'<img src="'+icon+'"></div>';*/
-		const deschtml = '<div border: solid red;">'+desc+'<img src="'+icon+'"></div>';
+		const deschtml = '<div class="scrollable-div"><p>'+tronquer(desc, 180)+'<p><img src="'+icon+'" width="350" height="300"></div>';
 
 		let content = title;
 		dtEnd.setSeconds(dtEnd.getSeconds() - 1);	// Enlève 1 seconde à l'heure de fin pour éviter chevauchement
