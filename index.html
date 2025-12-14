@@ -15,7 +15,7 @@
     .controls { margin-bottom: 15px; }
 	
 	.HideIfLandscape { display:block;}
-	@media (orientation: landscape) {
+	@media (max-width: 1024px) and (orientation: landscape) {
       .HideIfLandscape { display: none !important; }
     }
 
@@ -62,7 +62,7 @@
 					<select id="channelSelect" multiple size="7" style="width:270px;"></select>
 				</div>
 				<div class="col-lg-2 col-4 HideIfLandscape" style="align-content : end;">
-					<label>Début :</label> <input type="time" id="startTime" value="22:00" />
+					<label>Début :</label> <input type="time" id="startTime" value="21:00" />
 				</div>
 				<div class="col-lg-2 col-4 HideIfLandscape" style="align-content : end;">
 					<label>Fin :</label> <input type="time" id="endTime" value="22:00" />
@@ -81,6 +81,7 @@
   <script src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
   <script>
     let xmlDoc, channelsMap = {};
+	let timeline = null;
     
 	function toggleDarkMode() {
       document.body.classList.toggle("dark-mode");
@@ -91,7 +92,7 @@
 	  "OCS","Club RTL", "La Une","La Trois","M6","Plug RTL","RTL TVI",
       "TF1","TF1 Séries‑Films","France 2","W9", "CANAL+ BOX OFFICE","6ter",
 	  "AB3", "Action", "Cstar", "RTL9", "Science et Vie TV",
-	  "TF1 Séries-Films", "13eRue.fr", "LaDeux.be", "OCSMax.fr", "TMC.fr"
+	  "TF1 Séries-Films", "13ème rue", "Tipik", "OCS Max", "TMC"
     ];
 
 	document.getElementById('xmltvFile').addEventListener('change', e => {
@@ -172,7 +173,7 @@
 		const desc = prog.querySelector('desc')?.textContent || 'Sans titre';
 		const icon = prog.querySelector('icon')?.getAttribute('src');
 		/*const deschtml = '<div style="width:40%; border: solid red;">'+desc+'<img src="'+icon+'"></div>';*/
-		const deschtml = '<div class="scrollable-div"><p>'+tronquer(desc, 180)+'<p><img src="'+icon+'" width="350" height="300"></div>';
+		const deschtml = '<div class="scrollable-div"><p>'+tronquer(desc, 180)+'<p><img src="'+icon+'" width="350" height="auto"></div>';
 
 		let content = title;
 		dtEnd.setSeconds(dtEnd.getSeconds() - 1);	// Enlève 1 seconde à l'heure de fin pour éviter chevauchement
@@ -209,7 +210,10 @@
 
 						};
 
-      const timeline = new vis.Timeline(container, data, groups, options);
+	  if(timeline != undefined && timeline != null)
+		timeline.destroy();
+		
+	  timeline = new vis.Timeline(container, data, groups, options);
 	  
     // Ajout du zoom avec Ctrl + roulette
     container.addEventListener('wheel', function (event) {
