@@ -91,7 +91,7 @@
 	  "OCS","Club RTL", "La Une","La Trois","M6","Plug RTL","RTL TVI",
       "TF1","TF1 Séries‑Films","France 2","W9", "CANAL+ BOX OFFICE","6ter",
 	  "AB3", "Action", "Cstar", "RTL9", "Science et Vie TV",
-	  "TF1 Séries-Films"
+	  "TF1 Séries-Films", "13eRue.fr", "LaDeux.be", "OCSMax.fr", "TMC.fr"
     ];
 
 	document.getElementById('xmltvFile').addEventListener('change', e => {
@@ -132,7 +132,7 @@
         const name = channel.querySelector('display-name')?.textContent || id;
         const img = channel.querySelector('icon')?.getAttribute('src')
         //channelsMap[id] = name;
-		channelsMap[id] = '<span><img src="'+img+'" width="60" height="50" alt="'+name+'"></span>';
+		channelsMap[id] = '<span><img src="'+img+'" width="60" height="50" alt="'+name+'" title="'+name+'"></span>';
         const option = new Option(name, id);
         if (preselectedChannelNames.includes(name)) option.selected = true;
         select.add(option);
