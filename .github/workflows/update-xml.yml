@@ -2,7 +2,7 @@ name: Update XML file from ZIP
 
 on:
   schedule:
-    - cron: "0 3 * * 1"   # chaque lundi à 3h00 du matin
+    - cron: "0 3 * * 3"   # chaque mercredi à 3h00 du matin
   workflow_dispatch:
 
 jobs:
@@ -17,8 +17,8 @@ jobs:
 
       - name: Extract XML
         run: |
-          unzip -o data.zip -d tmp
-          cp tmp/*.xml xmltv_fr.zip   # copie/écrase le fichier XML
+          unzip -o xmltv_fr.zip -d tmp
+          cp tmp/xmltv_fr.xml xmltv_fr.zip   # copie/écrase le fichier XML
 
       - name: Commit and push
         run: |
