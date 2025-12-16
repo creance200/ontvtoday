@@ -18,7 +18,7 @@ jobs:
       - name: Extract XML
         run: |
           unzip -o xmltv_fr.zip -d tmp
-          cp tmp/xmltv_fr.xml xmltv_fr.zip   # copie/écrase le fichier XML
+          cp tmp/*.xml xmltv_fr.zip   # copie/écrase le fichier XML
 
       - name: Commit and push
         run: |
