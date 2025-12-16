@@ -1,0 +1,29 @@
+name: Update XML file from ZIP
+
+on:
+  schedule:
+    - cron: "0 3 * * 1"   # chaque lundi à 3h00 du matin
+  workflow_dispatch:
+
+jobs:
+  update-xml:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Download ZIP
+        run: curl -L -o xmltv_fr.zip https://xmltvfr.fr/xmltv/xmltv_fr.zip
+
+      - name: Extract XML
+        run: |
+          unzip -o data.zip -d tmp
+          cp tmp/*.xml xmltv_fr.zip   # copie/écrase le fichier XML
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add xmltv_fr.xml
+          git commit -m "Mise à jour automatique du fichier XML depuis ZIP"
+          git push
