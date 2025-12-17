@@ -104,6 +104,7 @@
 		const parser = new DOMParser();
 		xmlDoc = parser.parseFromString(str, "text/xml");
 		populateChannels(xmlDoc);
+		generate_timeline();
 	  })
 	  .catch(err => console.error(err));
 
@@ -155,6 +156,10 @@
     document.getElementById('filterButton').addEventListener('click', () => {
       if (!xmlDoc) return alert('Chargez d’abord un fichier XMLTV.');
 
+	  generate_timeline();
+	}
+															 
+	function generate_timeline() {
       const selected = Array.from(document.querySelector('#channelSelect').selectedOptions).map(o => o.value);
       if (!selected.length) return alert('Sélectionne au moins une chaîne.');
 
@@ -267,5 +272,6 @@
 </body>
 
 </html>
+
 
 
