@@ -94,9 +94,10 @@
 	  "AB3", "Action", "Cstar", "RTL9", "Science et Vie TV",
 	  "TF1 Séries-Films", "13ème rue", "Tipik", "OCS Max", "TMC"
     ];
-	
+
 	<!-- Chargement fichier xml par défaut -->
-	fetch("../tmp/xmltv_fr.xml")
+<!--https://github.com/creance200/ontvtoday/blob/dd7549d474afb8494d470dadc8d922286a58825d/tmp/xmltv_fr.xml -->
+	fetch("https://github.com/creance200/ontvtoday/raw/refs/heads/main/tmp/xmltv_fr.xml")
 	  .then(response => response.text())
 	  .then(str => {
 		const parser = new DOMParser();
