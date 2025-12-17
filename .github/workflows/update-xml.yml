@@ -8,6 +8,8 @@ on:
 jobs:
   update-xml:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   # <-- autorise le push avec GITHUB_TOKEN
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -26,4 +28,5 @@ jobs:
           git config user.email "actions@github.com"
           git add tmp/xmltv_fr.xml
           git commit -m "Mise à jour automatique du fichier XML depuis ZIP"
-          git push
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/creance200/ontvtoday.git
+          git push origin main
