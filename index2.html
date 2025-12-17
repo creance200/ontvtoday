@@ -157,7 +157,7 @@
       if (!xmlDoc) return alert('Chargez d’abord un fichier XMLTV.');
 
 	  generate_timeline();
-	}
+	});
 															 
 	function generate_timeline() {
       const selected = Array.from(document.querySelector('#channelSelect').selectedOptions).map(o => o.value);
@@ -266,12 +266,13 @@
 	
 	// END tool-tip code ====================================================
 	
-    });
+    };
 	
   </script>
 </body>
 
 </html>
+
 
 
 
