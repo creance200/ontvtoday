@@ -97,7 +97,8 @@
 
 	<!-- Chargement fichier xml par défaut -->
 <!--https://github.com/creance200/ontvtoday/blob/dd7549d474afb8494d470dadc8d922286a58825d/tmp/xmltv_fr.xml -->
-	fetch("https://github.com/creance200/ontvtoday/raw/refs/heads/main/tmp/xmltv_fr.xml")
+<!--https://github.com/creance200/ontvtoday/raw/refs/heads/main/tmp/xmltv_fr.xml -->
+	fetch("https://github.com/creance200/ontvtoday/blob/dd7549d474afb8494d470dadc8d922286a58825d/tmp/xmltv_fr.xml")
 	  .then(response => response.text())
 	  .then(str => {
 		const parser = new DOMParser();
@@ -264,4 +265,5 @@
 	
   </script>
 </body>
+
 </html>
