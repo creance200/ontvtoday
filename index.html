@@ -67,7 +67,7 @@
 				<div class="col-lg-2 col-3 HideIfLandscape" style="align-content : end;">
 					<label>Fin :</label> <input type="time" id="endTime" value="22:00" />
 				</div>
-				<div class="col-lg-2 col-2" style="align-content : end; padding-left:10px;">
+				<div class="col-lg-2 col-2 HideIfLandscape" style="align-content : end; padding-left:10px;">
 					<button id="filterButton">Valider</button>
 				</div>
 			</div>
@@ -215,7 +215,7 @@
 						margin: { item: 10, axis: 5 }, 
 						orientation: 'top', 
 						verticalScroll: true, // Active le scroll vertical (ajout visuel seulement)
-						maxHeight: '820px',
+						maxHeight: getMaxHeight(),  //'820px',
 						zoomable: false,
 						showTooltips: false, // Désactive les infobulles par défaut
 						template: function (item) {
@@ -267,6 +267,18 @@
 	// END tool-tip code ====================================================
 	
     };
+	
+	// Détection de l'orientation
+	function getMaxHeight() { 
+		if (window.matchMedia("(orientation: portrait)").matches) { 
+			// Mode portrait 
+			return 820; 
+		} 
+		else { 
+			// Mode paysage 
+			return 360; // exemple 
+			 } 
+	}
 	
   </script>
 </body>
