@@ -42,9 +42,9 @@
 <body>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-lg-3 col-sm-6"></div>
-			<div class="col-lg-7 col-sm-6"><h5>Programme TV — Timeline</h5></div>
-			<div class="col HideIfLandscape">
+			<div class="col-lg-3 col-sm-4"></div>
+			<div class="col-lg-7 col-sm-4"><h5>Programme TV — Timeline</h5></div>
+			<div class="col HideIfLandscape d-flex justify-content-end">
 				<button onclick="toggleDarkMode()">Changer de style</button>
 			</div>
 		</div>
@@ -58,17 +58,17 @@
 				<div class="col-lg-2 col-3" style="display:none;">
 					<input type="file" id="xmltvFile" accept=".xml" />
 				</div>
-				<div class="col-lg-3 col-7 HideIfLandscape">
+				<div class="col-lg-3 col-4 HideIfLandscape ">
 					<select id="channelSelect" multiple size="1" style="width:270px;"></select>
 				</div>
-				<div class="col-lg-2 col-4 HideIfLandscape" style="align-content : end;">
+				<div class="col-lg-2 col-3 HideIfLandscape" style="align-content : end;">
 					<label>Début :</label> <input type="time" id="startTime" value="21:00" />
 				</div>
-				<div class="col-lg-2 col-4 HideIfLandscape" style="align-content : end;">
+				<div class="col-lg-2 col-3 HideIfLandscape" style="align-content : end;">
 					<label>Fin :</label> <input type="time" id="endTime" value="22:00" />
 				</div>
-				<div class="col-lg-2 col-3" style="align-content : end; padding-left:10px;">
-					<button id="filterButton">Afficher la timeline</button>
+				<div class="col-lg-2 col-2" style="align-content : end; padding-left:10px;">
+					<button id="filterButton">Valider</button>
 				</div>
 			</div>
 		</div>
