@@ -40,10 +40,10 @@
   </style>
 </head>
 <body>
-	<h5>Programme TV — Timeline</h5>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-lg-10 col-sm-9"></div>
+			<div class="col-lg-3 col-sm-6"></div>
+			<div class="col-lg-7 col-sm-6"><h5>Programme TV — Timeline</h5></div>
 			<div class="col HideIfLandscape">
 				<button onclick="toggleDarkMode()">Changer de style</button>
 			</div>
@@ -52,14 +52,14 @@
 	<div class="controls">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-lg-1 col-2">
+				<div class="col-lg-1 col-2" style="display:none;">
 					<a href="https://xmltvfr.fr/xmltv/xmltv_fr.zip" style="margin-right:10px"><i class="fa-solid fa-cloud-arrow-down"></i>xmltv.zip</a>
 				</div>
-				<div class="col-lg-2 col-3">
+				<div class="col-lg-2 col-3" style="display:none;">
 					<input type="file" id="xmltvFile" accept=".xml" />
 				</div>
 				<div class="col-lg-3 col-7 HideIfLandscape">
-					<select id="channelSelect" multiple size="7" style="width:270px;"></select>
+					<select id="channelSelect" multiple size="1" style="width:270px;"></select>
 				</div>
 				<div class="col-lg-2 col-4 HideIfLandscape" style="align-content : end;">
 					<label>Début :</label> <input type="time" id="startTime" value="21:00" />
@@ -94,6 +94,19 @@
 	  "AB3", "Action", "Cstar", "RTL9", "Science et Vie TV",
 	  "TF1 Séries-Films", "13ème rue", "Tipik", "OCS Max", "TMC"
     ];
+
+	<!-- Chargement fichier xml par défaut -->
+<!--https://github.com/creance200/ontvtoday/blob/dd7549d474afb8494d470dadc8d922286a58825d/tmp/xmltv_fr.xml -->
+<!--https://github.com/creance200/ontvtoday/raw/refs/heads/main/tmp/xmltv_fr.xml -->
+	fetch("https://raw.githubusercontent.com/creance200/ontvtoday/main/tmp/xmltv_fr.xml")
+	  .then(response => response.text())
+	  .then(str => {
+		const parser = new DOMParser();
+		xmlDoc = parser.parseFromString(str, "text/xml");
+		populateChannels(xmlDoc);
+		generate_timeline();
+	  })
+	  .catch(err => console.error(err));
 
 	document.getElementById('xmltvFile').addEventListener('change', e => {
 	  const file = e.target.files[0];
@@ -143,6 +156,10 @@
     document.getElementById('filterButton').addEventListener('click', () => {
       if (!xmlDoc) return alert('Chargez d’abord un fichier XMLTV.');
 
+	  generate_timeline();
+	});
+															 
+	function generate_timeline() {
       const selected = Array.from(document.querySelector('#channelSelect').selectedOptions).map(o => o.value);
       if (!selected.length) return alert('Sélectionne au moins une chaîne.');
 
@@ -198,7 +215,7 @@
 						margin: { item: 10, axis: 5 }, 
 						orientation: 'top', 
 						verticalScroll: true, // Active le scroll vertical (ajout visuel seulement)
-						maxHeight: '620px',
+						maxHeight: '820px',
 						zoomable: false,
 						showTooltips: false, // Désactive les infobulles par défaut
 						template: function (item) {
@@ -249,8 +266,9 @@
 	
 	// END tool-tip code ====================================================
 	
-    });
+    };
 	
   </script>
 </body>
+
 </html>
