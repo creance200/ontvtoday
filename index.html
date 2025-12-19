@@ -75,7 +75,7 @@
 	</div>
 	
 
-  <div id="timeline"></div>
+  <div id="timeline" style="height:95%;"></div>
   <div id="custom-tooltip"></div>
 
   <script src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"></script>
@@ -104,7 +104,7 @@
 		const parser = new DOMParser();
 		xmlDoc = parser.parseFromString(str, "text/xml");
 		populateChannels(xmlDoc);
-		generate_timeline();
+		generate_();
 	  })
 	  .catch(err => console.error(err));
 
@@ -284,4 +284,5 @@
 </body>
 
 </html>
+
 
