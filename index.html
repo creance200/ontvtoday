@@ -120,7 +120,21 @@
   <script>
     let xmlDoc, channelsMap = {};
 	let timeline = null;
-    
+
+	/*Affectation startTime & endTime pour filter sur 2h par rapport à l'heure courante*/
+	function pad(n) { return n.toString().padStart(2, "0"); } 
+	const now = new Date(); 
+	const start = new Date(now); 
+	const end = new Date(now); 
+	start.setHours(start.getHours() - 1); 
+	end.setHours(end.getHours() + 1); 
+	// Format HH:MM 
+	const startFormatted = pad(start.getHours()) + ":" + pad(start.getMinutes()); 
+	const endFormatted = pad(end.getHours()) + ":" + pad(end.getMinutes()); 
+	// Affectation aux inputs 
+	document.getElementById("startTime").value = startFormatted; 
+	document.getElementById("endTime").value = endFormatted;   	
+	
 	function toggleDarkMode() {
       document.body.classList.toggle("dark-mode");
     }
