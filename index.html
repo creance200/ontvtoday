@@ -241,8 +241,10 @@
 		const title = prog.querySelector('title')?.textContent || 'Sans titre';
 		const desc = prog.querySelector('desc')?.textContent || 'Sans titre';
 		const icon = prog.querySelector('icon')?.getAttribute('src');
+		const startEndHour = dtStart.getHours().toString().padStart(2, '0') + ":" + dtStart.getMinutes().toString().padStart(2, '0') + " => " + dtEnd.getHours().toString().padStart(2, '0') + ":" + dtEnd.getMinutes().toString().padStart(2, '0')
+
 		/*const deschtml = '<div style="width:40%; border: solid red;">'+desc+'<img src="'+icon+'"></div>';*/
-		const deschtml = '<div class="scrollable-div"><p>'+tronquer(desc, 180)+'<p><img src="'+icon+'" width="350" height="auto"></div>';
+		const deschtml = '<div class="scrollable-div"><p>'+tronquer(desc, 180)+'<p><img src="'+icon+'" width="350" height="auto"><p>'+startEndHour+'</p></div>';
 
 		let content = title;
 		dtEnd.setSeconds(dtEnd.getSeconds() - 1);	// Enlève 1 seconde à l'heure de fin pour éviter chevauchement
