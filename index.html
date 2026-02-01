@@ -32,6 +32,7 @@
     }
 	
 	.scrollable-div {
+	  color: black !important;
 	  width: 400px; /* Largeur fixe */
 	  height: 500px; /* Hauteur fixe */
 	  overflow: auto; /* La barre de défilement apparaît seulement si nécessaire */
@@ -96,11 +97,11 @@
 				<div class="col-lg-3 col-4 HideIfLandscape ">
 					<select id="channelSelect" multiple size="1" style="width:270px;"></select>
 				</div>
-				<div class="col-lg-2 col-3 HideIfLandscape" style="align-content : end;">
-					<label>Début :</label> <input type="time" id="startTime" value="21:00" />
+				<div class="col-lg-3 col-3 HideIfLandscape" style="align-content : end;">
+					<label>Début :</label> <input type="datetime-local" id="startTime" />
 				</div>
-				<div class="col-lg-2 col-3 HideIfLandscape" style="align-content : end;">
-					<label>Fin :</label> <input type="time" id="endTime" value="22:00" />
+				<div class="col-lg-3 col-3 HideIfLandscape" style="align-content : end;">
+					<label>Fin :</label> <input type="datetime-local" id="endTime" />
 				</div>
 				<div class="col-lg-2 col-2 HideIfLandscape" style="align-content : end; padding-left:10px;">
 					<button id="filterButton">Valider</button>
@@ -128,12 +129,14 @@
 	const end = new Date(now); 
 	start.setHours(start.getHours() - 1); 
 	end.setHours(end.getHours() + 1); 
+	const offsetStart = start.getTimezoneOffset() * 60000; // décalage en ms
+	const offsetEnd = end.getTimezoneOffset() * 60000; // décalage en ms
 	// Format HH:MM 
-	const startFormatted = pad(start.getHours()) + ":" + pad(start.getMinutes()); 
-	const endFormatted = pad(end.getHours()) + ":" + pad(end.getMinutes()); 
+	const startLocalISOTime = new Date(start - offsetStart).toISOString().slice(0, 16);
+	const endLocalISOTime = new Date(end - offsetEnd).toISOString().slice(0, 16);
 	// Affectation aux inputs 
-	document.getElementById("startTime").value = startFormatted; 
-	document.getElementById("endTime").value = endFormatted;   	
+	document.getElementById("startTime").value = startLocalISOTime; 
+	document.getElementById("endTime").value = endLocalISOTime;   	
 	
 	function toggleDarkMode() {
       document.body.classList.toggle("dark-mode");
@@ -217,7 +220,7 @@
 
       const start = document.getElementById('startTime').value;
       const end = document.getElementById('endTime').value;
-      const today = new Date().toISOString().split('T')[0];
+      //const today = new Date().toISOString().split('T')[0];
 
       const items = [], groupsMap = {};
       let groupId = 0;
@@ -231,8 +234,9 @@
         const dtStart = new Date(`${startAttr.slice(0,4)}-${startAttr.slice(4,6)}-${startAttr.slice(6,8)}T${startAttr.slice(8,10)}:${startAttr.slice(10,12)}`);
         const dtEnd = new Date(`${endAttr.slice(0,4)}-${endAttr.slice(4,6)}-${endAttr.slice(6,8)}T${endAttr.slice(8,10)}:${endAttr.slice(10,12)}`);
 
-        const filterStart = new Date(`${today}T${start}`), filterEnd = new Date(`${today}T${end}`);
-        if (dtEnd <= filterStart || dtStart >= filterEnd) return;
+        //const filterStart = new Date(`${today}T${start}`), filterEnd = new Date(`${today}T${end}`);
+        //if (dtEnd <= filterStart || dtStart >= filterEnd) return;
+        if (dtEnd.toISOString() <= start || dtStart.toISOString() >= end) return;
 
         if (!(ch in groupsMap)) {
           groupsMap[ch] = ++groupId;
